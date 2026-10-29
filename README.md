@@ -5,7 +5,8 @@
 ClassicSynth is a VST3 instrument for Windows (x64) that re-implements the sound architecture
 and preset formats of **Synth1 V1.13** by Daichi. It loads and saves Synth1 presets, so the
 large library of community `.sy1` patches and `.zip` banks plays the same way in a modern
-VST3 host.
+VST3 host. 
+Disclaimer: This was a personal project. I do not monetize this in any way. Synth1 is originally free, let's keep it that way.
 
 The work is based on a static analysis of the original Synth1 64-bit DLL. Its parameter
 table, value curves, voice and effect routing, and chunk format were recovered and then
