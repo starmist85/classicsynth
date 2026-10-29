@@ -64,7 +64,9 @@ The bundle is written to `vsproject\build\Release\ClassicSynth.vst3`. Copy it to
 
 ### Files not included in this repository
 
-These folders are in `.gitignore` because their contents belong to other people:
+These folders are in `.gitignore` because their contents belong to other people. `original/` and
+`presets/` keep their folder structure through empty `.gitkeep` files, so you can see where
+everything goes:
 
 * `original/` holds the Synth1 V1.13 distribution (`Synth1 VST64.dll`, the readmes and the
   soundbanks). Download it from Daichi's site (<https://daichilab.sakura.ne.jp/>).
