@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "rea": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", "rea", "--mcp"],
+      "env": {
+        "GHIDRA_INSTALL_DIR": "C:\\ghidra-dl\\ghidra_12.1.4_PUBLIC",
+        "JAVA_HOME": "C:\\Program Files\\Eclipse Adoptium\\jdk-25.0.4.101-hotspot"
+      }
+    }
+  }
+}

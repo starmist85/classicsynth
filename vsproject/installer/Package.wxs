@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Starmist Audio - ClassicSynth installer (WiX v5).
+
+  * Installs ClassicSynth.vst3 into <VST3 folder> (default: C:\Program Files\Common Files\VST3),
+    with a Browse... button on the folder page (WixUI_InstallDir).
+  * Factory presets go inside the bundle: Contents\Resources\Presets\{Library, Zip Banks}.
+  * Running the MSI again on an installed system shows Repair / Remove.
+  * Newer versions upgrade in place (MajorUpgrade); "Apps & Features" can uninstall.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+
+  <Package Name="Starmist Audio - ClassicSynth"
+           Manufacturer="Starmist Audio"
+           Version="1.0.0.1"
+           UpgradeCode="{3E7C2A91-5D44-4B8E-9F1A-6C2B8D4E7A10}"
+           Scope="perMachine"
+           Compressed="yes"
+           InstallerVersion="500">
+
+    <SummaryInformation Description="ClassicSynth VST3 instrument (Synth1-compatible)" />
+
+    <MajorUpgrade AllowSameVersionUpgrades="no"
+                  DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" MaximumUncompressedMediaSize="512" />
+
+    <Icon Id="ProductIcon" SourceFile="$(var.IconFile)" />
+    <Property Id="ARPPRODUCTICON" Value="ProductIcon" />
+    <Property Id="ARPURLINFOABOUT" Value="https://starmist.audio" />
+
+    <!-- Folder layout -->
+    <StandardDirectory Id="CommonFiles64Folder">
+      <Directory Id="VST3FOLDER" Name="VST3">
+        <Directory Id="BUNDLEDIR" Name="ClassicSynth.vst3">
+          <Directory Id="CONTENTSDIR" Name="Contents">
+            <Directory Id="BINDIR" Name="x86_64-win" />
+            <Directory Id="RESDIR" Name="Resources">
+              <Directory Id="PRESETSDIR" Name="Presets">
+                <Directory Id="LIBRARYDIR" Name="Library" />
+                <Directory Id="ZIPBANKDIR" Name="Zip Banks" />
+              </Directory>
+            </Directory>
+          </Directory>
+        </Directory>
+      </Directory>
+    </StandardDirectory>
+
+    <!-- Plugin binary and bundle metadata -->
+    <ComponentGroup Id="PluginBundle">
+      <Component Directory="BINDIR" Guid="{9C1D5E27-3B6A-4F80-A2D4-1E7F6B3C8D52}">
+        <File Id="PluginBinary" Source="$(var.BundleDir)\Contents\x86_64-win\ClassicSynth.vst3" KeyPath="yes" />
+      </Component>
+      <Component Directory="BUNDLEDIR" Guid="{4A8E2F61-7C3D-4B19-8E5A-2D6F9B1C3E74}">
+        <File Id="BundleDesktopIni" Source="$(var.BundleDir)\desktop.ini" Hidden="yes" System="yes" KeyPath="yes" />
+        <File Id="BundleIcon" Source="$(var.BundleDir)\PlugIn.ico" Hidden="yes" />
+      </Component>
+    </ComponentGroup>
+
+    <!-- Factory presets (preset-related files only) -->
+    <ComponentGroup Id="FactoryLibrary" Directory="LIBRARYDIR">
+      <Files Include="$(var.PresetsDir)\**\*.sy1" />
+      <Files Include="$(var.PresetsDir)\**\*.fxp" />
+      <Files Include="$(var.PresetsDir)\**\*.fxb" />
+      <Files Include="$(var.PresetsDir)\**\*.zip" />
+      <Files Include="$(var.PresetsDir)\**\*.txt" />
+      <Files Include="$(var.PresetsDir)\**\*.ccm" />
+    </ComponentGroup>
+    <ComponentGroup Id="FactoryZipBanks" Directory="ZIPBANKDIR">
+      <Files Include="$(var.ZipDir)\*.zip" />
+    </ComponentGroup>
+
+    <Feature Id="Main" Title="ClassicSynth VST3" Level="1" ConfigurableDirectory="VST3FOLDER" AllowAbsent="no">
+      <ComponentGroupRef Id="PluginBundle" />
+      <Feature Id="Presets" Title="Factory presets" Level="1">
+        <ComponentGroupRef Id="FactoryLibrary" />
+        <ComponentGroupRef Id="FactoryZipBanks" />
+      </Feature>
+    </Feature>
+
+    <!-- Wizard: Welcome -> License -> Folder (with Browse...) -> Install.
+         On an installed system the maintenance page offers Repair / Remove. -->
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="VST3FOLDER" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+  </Package>
+</Wix>

@@ -1,0 +1,30 @@
+# Third-party content (not redistributed; see README)
+/original/
+/presets/
+/zipbank/
+
+# Build output
+/vsproject/build/
+/vsproject/installer/bin/
+/vsproject/installer/obj/
+*.pdb
+*.ilk
+*.iobj
+*.ipdb
+*.obj
+*.tlog
+*.log
+*.msi
+*.wixpdb
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Local tool / OS files
+/.claude/settings.local.json
+desktop.ini
+Thumbs.db
+*.gzf
+*.rep/

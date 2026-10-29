@@ -1,0 +1,26 @@
+<Project Sdk="WixToolset.Sdk/5.0.2">
+  <!--
+    Builds ClassicSynth-<version>-x64.msi
+      dotnet build vsproject\installer\ClassicSynth.Installer.wixproj -c Release
+    Requires the Release VST3 bundle: vsproject\build\Release\ClassicSynth.vst3
+    (scripts\build.ps1 does both steps).
+  -->
+  <PropertyGroup>
+    <OutputName>ClassicSynth-1.0.0-x64</OutputName>
+    <Platform>x64</Platform>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <OutputPath>$(MSBuildThisFileDirectory)bin\</OutputPath>
+    <SuppressValidation>false</SuppressValidation>
+    <!-- 24k preset files: keep ICE validation time reasonable -->
+    <SuppressIces>ICE03;ICE60;ICE61</SuppressIces>
+    <DefineConstants>
+      BundleDir=$(MSBuildThisFileDirectory)..\build\Release\ClassicSynth.vst3;
+      PresetsDir=$(MSBuildThisFileDirectory)..\..\presets;
+      ZipDir=$(MSBuildThisFileDirectory)..\..\zipbank;
+      IconFile=$(MSBuildThisFileDirectory)..\resources\PlugIn.ico
+    </DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="WixToolset.UI.wixext" Version="5.0.2" />
+  </ItemGroup>
+</Project>

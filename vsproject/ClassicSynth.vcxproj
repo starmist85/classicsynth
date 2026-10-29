@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{6B1F4C2A-3E7D-4F0B-9A51-2C8D7E4F1A01}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>ClassicSynth</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+
+  <PropertyGroup Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'" Label="Configuration">
+    <UseDebugLibraries>true</UseDebugLibraries>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Release'" Label="Configuration">
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+
+  <PropertyGroup>
+    <TargetName>ClassicSynth</TargetName>
+    <TargetExt>.vst3</TargetExt>
+    <OutDir>$(ProjectDir)build\$(Configuration)\bin\</OutDir>
+    <IntDir>$(ProjectDir)build\$(Configuration)\obj\</IntDir>
+    <BundleDir>$(ProjectDir)build\$(Configuration)\ClassicSynth.vst3\</BundleDir>
+    <SdkDir>$(ProjectDir)external\vst3sdk\</SdkDir>
+  </PropertyGroup>
+
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalIncludeDirectories>$(SdkDir);$(ProjectDir)external\miniz;$(ProjectDir)src;$(ProjectDir)resources;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NOMINMAX;_CRT_SECURE_NO_WARNINGS;_USE_MATH_DEFINES;MINIZ_NO_TIME;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalOptions>/utf-8 /bigobj %(AdditionalOptions)</AdditionalOptions>
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>d2d1.lib;dwrite.lib;windowscodecs.lib;comdlg32.lib;shell32.lib;ole32.lib;shlwapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>if not exist "$(BundleDir)Contents\x86_64-win" mkdir "$(BundleDir)Contents\x86_64-win"
+if not exist "$(BundleDir)Contents\Resources\Presets" mkdir "$(BundleDir)Contents\Resources\Presets"
+copy /Y "$(TargetPath)" "$(BundleDir)Contents\x86_64-win\ClassicSynth.vst3" &gt; nul
+if exist "$(BundleDir)desktop.ini" attrib -h -s "$(BundleDir)desktop.ini"
+if exist "$(BundleDir)PlugIn.ico" attrib -h -s "$(BundleDir)PlugIn.ico"
+copy /Y "$(ProjectDir)resources\desktop.ini" "$(BundleDir)desktop.ini" &gt; nul
+if exist "$(ProjectDir)..\assets\PlugIn.ico" (copy /Y "$(ProjectDir)..\assets\PlugIn.ico" "$(BundleDir)PlugIn.ico" &gt; nul) else (copy /Y "$(ProjectDir)resources\PlugIn.ico" "$(BundleDir)PlugIn.ico" &gt; nul)
+attrib +h +s "$(BundleDir)desktop.ini"
+attrib +h "$(BundleDir)PlugIn.ico"
+attrib +s "$(BundleDir)"
+rem Factory presets for development builds: junctions to the repository folders.
+if not exist "$(BundleDir)Contents\Resources\Presets\Library" if exist "$(ProjectDir)..\presets" mklink /J "$(BundleDir)Contents\Resources\Presets\Library" "$(ProjectDir)..\presets" &gt; nul
+if not exist "$(BundleDir)Contents\Resources\Presets\Zip Banks" if exist "$(ProjectDir)..\zipbank" mklink /J "$(BundleDir)Contents\Resources\Presets\Zip Banks" "$(ProjectDir)..\zipbank" &gt; nul
+echo Bundle: $(BundleDir)</Command>
+      <Message>Assembling VST3 bundle</Message>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>DEVELOPMENT=1;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>RELEASE=1;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- ===== ClassicSynth sources ===== -->
+  <ItemGroup>
+    <ClInclude Include="src\version.h" />
+    <ClInclude Include="src\pluginids.h" />
+    <ClInclude Include="src\params\ParamTable.h" />
+    <ClInclude Include="src\params\ParamDisplay.h" />
+    <ClInclude Include="src\dsp\DspCommon.h" />
+    <ClInclude Include="src\dsp\Oscillator.h" />
+    <ClInclude Include="src\dsp\Filter.h" />
+    <ClInclude Include="src\dsp\Envelope.h" />
+    <ClInclude Include="src\dsp\Lfo.h" />
+    <ClInclude Include="src\dsp\Voice.h" />
+    <ClInclude Include="src\dsp\Arpeggiator.h" />
+    <ClInclude Include="src\dsp\Effects.h" />
+    <ClInclude Include="src\dsp\SynthEngine.h" />
+    <ClInclude Include="src\presets\Patch.h" />
+    <ClInclude Include="src\presets\PresetFormats.h" />
+    <ClInclude Include="src\presets\PresetLibrary.h" />
+    <ClInclude Include="src\processor\Processor.h" />
+    <ClInclude Include="src\controller\Controller.h" />
+    <ClInclude Include="src\ui\Theme.h" />
+    <ClInclude Include="src\ui\Graphics.h" />
+    <ClInclude Include="src\ui\Widgets.h" />
+    <ClInclude Include="src\ui\PresetBrowser.h" />
+    <ClInclude Include="src\ui\Editor.h" />
+    <ClInclude Include="resources\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\factory.cpp" />
+    <ClCompile Include="src\params\ParamTable.cpp" />
+    <ClCompile Include="src\params\ParamDisplay.cpp" />
+    <ClCompile Include="src\dsp\Oscillator.cpp" />
+    <ClCompile Include="src\dsp\Filter.cpp" />
+    <ClCompile Include="src\dsp\Lfo.cpp" />
+    <ClCompile Include="src\dsp\Voice.cpp" />
+    <ClCompile Include="src\dsp\Arpeggiator.cpp" />
+    <ClCompile Include="src\dsp\Effects.cpp" />
+    <ClCompile Include="src\dsp\SynthEngine.cpp" />
+    <ClCompile Include="src\presets\Patch.cpp" />
+    <ClCompile Include="src\presets\PresetFormats.cpp" />
+    <ClCompile Include="src\presets\PresetLibrary.cpp" />
+    <ClCompile Include="src\processor\Processor.cpp" />
+    <ClCompile Include="src\controller\Controller.cpp" />
+    <ClCompile Include="src\ui\Graphics.cpp" />
+    <ClCompile Include="src\ui\Widgets.cpp" />
+    <ClCompile Include="src\ui\PresetBrowser.cpp" />
+    <ClCompile Include="src\ui\Editor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resources\ClassicSynth.rc" />
+  </ItemGroup>
+
+  <!-- ===== Third party: miniz (MIT) ===== -->
+  <ItemGroup>
+    <ClCompile Include="external\miniz\miniz.c">
+      <CompileAs>CompileAsC</CompileAs>
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+    </ClCompile>
+  </ItemGroup>
+
+  <!-- ===== Third party: Steinberg VST3 SDK (MIT) ===== -->
+  <ItemGroup>
+    <ClCompile Include="external\vst3sdk\base\source\baseiids.cpp" />
+    <ClCompile Include="external\vst3sdk\base\source\fbuffer.cpp" />
+    <ClCompile Include="external\vst3sdk\base\source\fdebug.cpp" />
+    <ClCompile Include="external\vst3sdk\base\source\fdynlib.cpp" />
+    <ClCompile Include="external\vst3sdk\base\source\fobject.cpp" />
+    <ClCompile Include="external\vst3sdk\base\source\fstreamer.cpp" />
+    <ClCompile Include="external\vst3sdk\base\source\fstring.cpp" />
+    <ClCompile Include="external\vst3sdk\base\source\timer.cpp" />
+    <ClCompile Include="external\vst3sdk\base\source\updatehandler.cpp" />
+    <ClCompile Include="external\vst3sdk\base\thread\source\fcondition.cpp" />
+    <ClCompile Include="external\vst3sdk\base\thread\source\flock.cpp" />
+    <ClCompile Include="external\vst3sdk\pluginterfaces\base\conststringtable.cpp" />
+    <ClCompile Include="external\vst3sdk\pluginterfaces\base\coreiids.cpp" />
+    <ClCompile Include="external\vst3sdk\pluginterfaces\base\funknown.cpp" />
+    <ClCompile Include="external\vst3sdk\pluginterfaces\base\ustring.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\commoniids.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\commonstringconvert.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\memorystream.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\pluginview.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\threadchecker_win32.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\main\dllmain.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\main\moduleinit.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\main\pluginfactory.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstaudioeffect.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstbus.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstcomponent.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstcomponentbase.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vsteditcontroller.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstinitiids.cpp" />
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstparameters.cpp" />
+  </ItemGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+</Project>

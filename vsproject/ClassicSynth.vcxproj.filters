@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Plugin"><UniqueIdentifier>{a1f3c2d4-1111-4a5b-8c9d-000000000001}</UniqueIdentifier></Filter>
+    <Filter Include="Params"><UniqueIdentifier>{a1f3c2d4-1111-4a5b-8c9d-000000000002}</UniqueIdentifier></Filter>
+    <Filter Include="DSP"><UniqueIdentifier>{a1f3c2d4-1111-4a5b-8c9d-000000000003}</UniqueIdentifier></Filter>
+    <Filter Include="Presets"><UniqueIdentifier>{a1f3c2d4-1111-4a5b-8c9d-000000000004}</UniqueIdentifier></Filter>
+    <Filter Include="UI"><UniqueIdentifier>{a1f3c2d4-1111-4a5b-8c9d-000000000005}</UniqueIdentifier></Filter>
+    <Filter Include="Resources"><UniqueIdentifier>{a1f3c2d4-1111-4a5b-8c9d-000000000006}</UniqueIdentifier></Filter>
+    <Filter Include="External\miniz"><UniqueIdentifier>{a1f3c2d4-1111-4a5b-8c9d-000000000007}</UniqueIdentifier></Filter>
+    <Filter Include="External\VST3 SDK"><UniqueIdentifier>{a1f3c2d4-1111-4a5b-8c9d-000000000008}</UniqueIdentifier></Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\version.h"><Filter>Plugin</Filter></ClInclude>
+    <ClInclude Include="src\pluginids.h"><Filter>Plugin</Filter></ClInclude>
+    <ClInclude Include="src\processor\Processor.h"><Filter>Plugin</Filter></ClInclude>
+    <ClInclude Include="src\controller\Controller.h"><Filter>Plugin</Filter></ClInclude>
+    <ClInclude Include="src\params\ParamTable.h"><Filter>Params</Filter></ClInclude>
+    <ClInclude Include="src\params\ParamDisplay.h"><Filter>Params</Filter></ClInclude>
+    <ClInclude Include="src\dsp\DspCommon.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\dsp\Oscillator.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\dsp\Filter.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\dsp\Envelope.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\dsp\Lfo.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\dsp\Voice.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\dsp\Arpeggiator.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\dsp\Effects.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\dsp\SynthEngine.h"><Filter>DSP</Filter></ClInclude>
+    <ClInclude Include="src\presets\Patch.h"><Filter>Presets</Filter></ClInclude>
+    <ClInclude Include="src\presets\PresetFormats.h"><Filter>Presets</Filter></ClInclude>
+    <ClInclude Include="src\presets\PresetLibrary.h"><Filter>Presets</Filter></ClInclude>
+    <ClInclude Include="src\ui\Theme.h"><Filter>UI</Filter></ClInclude>
+    <ClInclude Include="src\ui\Graphics.h"><Filter>UI</Filter></ClInclude>
+    <ClInclude Include="src\ui\Widgets.h"><Filter>UI</Filter></ClInclude>
+    <ClInclude Include="src\ui\PresetBrowser.h"><Filter>UI</Filter></ClInclude>
+    <ClInclude Include="src\ui\Editor.h"><Filter>UI</Filter></ClInclude>
+    <ClInclude Include="resources\resource.h"><Filter>Resources</Filter></ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\factory.cpp"><Filter>Plugin</Filter></ClCompile>
+    <ClCompile Include="src\processor\Processor.cpp"><Filter>Plugin</Filter></ClCompile>
+    <ClCompile Include="src\controller\Controller.cpp"><Filter>Plugin</Filter></ClCompile>
+    <ClCompile Include="src\params\ParamTable.cpp"><Filter>Params</Filter></ClCompile>
+    <ClCompile Include="src\params\ParamDisplay.cpp"><Filter>Params</Filter></ClCompile>
+    <ClCompile Include="src\dsp\Oscillator.cpp"><Filter>DSP</Filter></ClCompile>
+    <ClCompile Include="src\dsp\Filter.cpp"><Filter>DSP</Filter></ClCompile>
+    <ClCompile Include="src\dsp\Lfo.cpp"><Filter>DSP</Filter></ClCompile>
+    <ClCompile Include="src\dsp\Voice.cpp"><Filter>DSP</Filter></ClCompile>
+    <ClCompile Include="src\dsp\Arpeggiator.cpp"><Filter>DSP</Filter></ClCompile>
+    <ClCompile Include="src\dsp\Effects.cpp"><Filter>DSP</Filter></ClCompile>
+    <ClCompile Include="src\dsp\SynthEngine.cpp"><Filter>DSP</Filter></ClCompile>
+    <ClCompile Include="src\presets\Patch.cpp"><Filter>Presets</Filter></ClCompile>
+    <ClCompile Include="src\presets\PresetFormats.cpp"><Filter>Presets</Filter></ClCompile>
+    <ClCompile Include="src\presets\PresetLibrary.cpp"><Filter>Presets</Filter></ClCompile>
+    <ClCompile Include="src\ui\Graphics.cpp"><Filter>UI</Filter></ClCompile>
+    <ClCompile Include="src\ui\Widgets.cpp"><Filter>UI</Filter></ClCompile>
+    <ClCompile Include="src\ui\PresetBrowser.cpp"><Filter>UI</Filter></ClCompile>
+    <ClCompile Include="src\ui\Editor.cpp"><Filter>UI</Filter></ClCompile>
+    <ClCompile Include="external\miniz\miniz.c"><Filter>External\miniz</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\baseiids.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\fbuffer.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\fdebug.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\fdynlib.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\fobject.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\fstreamer.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\fstring.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\timer.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\source\updatehandler.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\thread\source\fcondition.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\base\thread\source\flock.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\pluginterfaces\base\conststringtable.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\pluginterfaces\base\coreiids.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\pluginterfaces\base\funknown.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\pluginterfaces\base\ustring.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\commoniids.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\commonstringconvert.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\memorystream.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\pluginview.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\common\threadchecker_win32.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\main\dllmain.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\main\moduleinit.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\main\pluginfactory.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstaudioeffect.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstbus.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstcomponent.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstcomponentbase.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vsteditcontroller.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstinitiids.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+    <ClCompile Include="external\vst3sdk\public.sdk\source\vst\vstparameters.cpp"><Filter>External\VST3 SDK</Filter></ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resources\ClassicSynth.rc"><Filter>Resources</Filter></ResourceCompile>
+  </ItemGroup>
+</Project>
